@@ -1,0 +1,36 @@
+# Rust
+/target/
+Cargo.lock
+**/*.rs.bk
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Build artifacts
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+*.out
+
+# OS specific
+.DS_Store
+Thumbs.db
+.env
+.env.local
+
+# Project specific
+/media/
+/output/
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.tmp
