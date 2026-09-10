@@ -1,6 +1,5 @@
 # Rust
 /target/
-Cargo.lock
 **/*.rs.bk
 
 # IDE
@@ -34,3 +33,4 @@ Thumbs.db
 *.mkv
 *.webm
 *.tmp
+/testdata/
