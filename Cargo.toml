@@ -2,80 +2,43 @@
 name = "nexus-video-editor"
 version = "0.1.0"
 edition = "2021"
+rust-version = "1.98"
 authors = ["Fs1lyric"]
-description = "A modern, high-performance video editing application built in Rust"
+description = "A small, honest video editor: trim, arrange and export clips on a single timeline. Wraps ffmpeg."
 license = "MIT"
 repository = "https://github.com/Fs1lyric/nexus-video-editor"
+readme = "README.md"
 
-[dependencies]
-# GUI Framework
-egui = "0.24"
-eframe = "0.24"
-egui_extras = { version = "0.24", features = ["all_loaders"] }
-
-# Video Processing
-ffmpeg-next = "6.1"
-opencv = { version = "0.89", features = ["clang-runtime"] }
-
-# Audio Processing
-cpal = "0.17"
-hound = "3.5"
-
-# Image Processing
-image = "0.24"
-imageproc = "0.23"
-
-# Data & Serialization
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
-ron = "0.8"
-
-# Async Runtime
-tokio = { version = "1", features = ["full"] }
-futures = "0.3"
-
-# Threading & Concurrency
-rayon = "1.8"
-parking_lot = "0.12"
-
-# Math & Geometry
-nalgebra = "0.32"
-glam = "0.24"
-
-# Time & Duration
-chrono = "0.4"
-
-# Logging
-log = "0.4"
-env_logger = "0.11"
-
-# Error Handling
-anyhow = "1.0"
-thiserror = "1.0"
-
-# File I/O
-walkdir = "2.4"
-
-# GPU Acceleration (optional)
-wgpu = { version = "0.18", optional = true }
-winit = "0.28"
-
-# CLI
-clap = { version = "4.4", features = ["derive"] }
-
-[dev-dependencies]
-criterion = "0.5"
-
-[features]
-default = ["gpu"]
-gpu = ["wgpu"]
+[lib]
+name = "nexus"
+path = "src/lib.rs"
 
 [[bin]]
 name = "nexus"
 path = "src/main.rs"
 
+[features]
+default = ["gui"]
+gui = ["dep:eframe", "dep:image", "dep:rfd"]
+
+[dependencies]
+anyhow = "1"
+thiserror = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+clap = { version = "4", features = ["derive"] }
+
+eframe = { version = "0.28", optional = true, default-features = false, features = [
+    "default_fonts",
+    "glow",
+    "wayland",
+    "x11",
+] }
+image = { version = "0.25", optional = true, default-features = false, features = ["png"] }
+rfd = { version = "0.14", optional = true }
+
 [profile.release]
 opt-level = 3
-lto = true
+lto = "thin"
 codegen-units = 1
 strip = true
